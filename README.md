@@ -71,4 +71,103 @@ In this project, Verilog HDL was chosen because it’s used for synthesis of log
 ### State Diagram
 ![Screenshot (323)](https://github.com/user-attachments/assets/a9c25e10-da58-4aa6-9587-a52bafebd659)
 
+- State S1   H(highway)=Green , C(country road)= Red    (Default state)
+- State S2   H=Yellow , C= Red
+- State S3   H=Red , C= Red
+- State S4   H=Red , C= Green
+- State S5   H=Red , C= Yellow
+
+
+## Verilog Code.
+`define TRUE 1'b1
+`define FALSE 1'b0
+
+`define RED 2'b00
+`define YELLOW 2'b01
+`define GREEN 2'b10
+
+`define S1 3'b000
+`define S2 3'b001
+`define S3 3'b010
+`define S4 3'b011
+`define S5 3'b100
+
+`define RED_GREENDELAY 5
+`define YELLOW_REDDELAY 2
+
+module controller(H,C,X,CLK,CLR);
+  input X,CLR,CLK;
+  output [1:0] H,C;
+  reg [1:0] H,C;
+  reg [2:0] state;
+  reg [2:0] next_state;
+  
+  initial
+    begin
+      state=`S1;
+      next_state=`S1;
+      H=`GREEN;
+      C=`RED;
+    end
+  
+  always @(posedge CLK)
+    state=next_state;
+  
+  always @(state)
+    begin
+      case(state)
+        `S1: begin
+          H=`GREEN;
+          C=`RED;
+        end
+        `S2: begin
+          H=`YELLOW;
+          C=`RED;
+        end
+        `S3: begin
+          H=`RED;
+          C=`RED;
+        end
+        `S4: begin
+          H=`RED;
+          C=`GREEN;
+        end
+        `S5: begin
+          H=`RED;
+          C=`YELLOW;
+        end
+      endcase
+    end
+  always @(state or CLR or X)
+    begin
+      if(CLR)
+        next_state=`S1;
+      else
+        case(state)
+          `S1: if(X)
+            next_state=`S2;
+          else
+            next_state=`S1;
+          `S2: begin
+            repeat( `YELLOW_REDDELAY) @(posedge CLK);
+            next_state=`S3;
+          end
+          `S3: begin
+            repeat( `RED_GREENDELAY) @(posedge CLK);
+            next_state=`S4;
+          end
+          `S4: if(X)
+            next_state=`S4;
+          else
+            next_state=`X5;
+          `S5: begin
+            repeat( `YELLOW_REDDELAY) @(posedge CLK);
+            next_state=`S1;
+          end
+          default:next_state=`S1;
+        endcase
+    end
+endmodule
+        
+
 
