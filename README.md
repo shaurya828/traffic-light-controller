@@ -79,6 +79,10 @@ In this project, Verilog HDL was chosen because it’s used for synthesis of log
 
 
 ## Verilog Code.
+```
+
+
+
 `define TRUE 1'b1
 `define FALSE 1'b0
 
@@ -168,6 +172,8 @@ module controller(H,C,X,CLK,CLR);
         endcase
     end
 endmodule
+
+```
         
 
 
