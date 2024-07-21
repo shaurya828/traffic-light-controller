@@ -69,4 +69,6 @@ In this project, Verilog HDL was chosen because it’s used for synthesis of log
 - Yellow light indicates that the route has medium flow of vehicles.
 
 ### State Diagram
+![Screenshot (323)](https://github.com/user-attachments/assets/a9c25e10-da58-4aa6-9587-a52bafebd659)
+
 
