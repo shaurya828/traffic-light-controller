@@ -9,10 +9,6 @@
     - [State Table](#state-table)
 3. [RTL Code](#rtl-code)
     - [RTL Schematic View](#rtl-schematic-view)
-4. [TESTBENCH](#testbench)
-5. [Output Waveforms](#output-waveforms)
-6. [Result](#result)
-7. [Future work](#future-work)
 8. [References](#references)
 
 ## Introduction 
